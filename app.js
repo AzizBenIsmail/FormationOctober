@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const http = require('http');
+const http = require('http'); //1
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -35,5 +35,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-const server = http.createServer(app);
+const server = http.createServer(app);                                      //2
 server.listen(5000,() => {console.log('app is running io port: 5000')});
