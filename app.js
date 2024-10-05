@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const http = require('http'); //1
+const { connectToMonogoDB } = require("./db/db.js")
 
 require("dotenv").config();
 
@@ -37,5 +38,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-const server = http.createServer(app);                                      //2
-server.listen(process.env.Port,() => {console.log('app is running io port: 5000')});
+const server = http.createServer(app); //2
+server.listen(process.env.Port,() => {connectToMonogoDB(),console.log('app is running io port: 5000')});
