@@ -14,4 +14,6 @@ router.get('/getAllUsers',userController.getAllUsers);
 router.delete('/deleteUserByID/:id',userController.deleteUserByID);
 router.post('/addUser',userController.addUser);
 router.post('/confirmPassword',userController.confirmPassword);
+router.put('/updateUser/:id',userController.updateUser);
+router.get('/getUserById/:id',userController.getUserById);
 module.exports = router;
