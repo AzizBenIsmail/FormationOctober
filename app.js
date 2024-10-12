@@ -39,4 +39,4 @@ app.use(function(err, req, res, next) {
 });
 
 const server = http.createServer(app); //2
-server.listen(process.env.Port,() => {connectToMonogoDB(),console.log('app is running io port: 5000')});
+server.listen(process.env.Port,() => {connectToMonogoDB(),console.log('app is running in port: 5000')});
