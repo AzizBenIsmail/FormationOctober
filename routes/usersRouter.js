@@ -9,4 +9,9 @@ const userController = require('../controller/userController.js');
 //     res.status(200).json('index', { title: 'Express' });
 //   });
   
+/* GET users  */
+router.get('/getAllUsers',userController.getAllUsers);
+router.delete('/deleteUserByID/:id',userController.deleteUserByID);
+router.post('/addUser',userController.addUser);
+router.post('/confirmPassword',userController.confirmPassword);
 module.exports = router;

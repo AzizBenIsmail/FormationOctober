@@ -8,7 +8,8 @@ const userSchema = new mongoose.Schema({
   prenom: String,
   age: Number,
   address: String,
-  image_User : String
+  image_User : String,
+  createdAt : Date 
 //   image_User : {type : String , required: true , Default:"client.png"}
 });
 
@@ -17,13 +18,14 @@ userSchema.post("save",function (req,res,next){
     next();
 })
 
-userSchema.pre("save", async function (req,res,next) {
+userSchema.pre("save", async function (next) {
 try {
-    const salt = await bcrypt.genSalt;
+    const salt = await bcrypt.genSalt();
     const user = this;
+    console.log(user.password);
     user.password = await bcrypt.hash(user.password, salt);
     user.image_User = "client.png"
-    user.createdAt = Data.now();
+    user.createdAt = Date.now();
     next();
 } catch (error) {
     next(error);
