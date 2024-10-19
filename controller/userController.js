@@ -12,7 +12,7 @@ module.exports.EsmFonction = async (req, res) => {
 
 module.exports.getAllUsers = async (req, res) => {
   try {
-    const usersList = await userModel.find();
+    const usersList = await userModel.find(); //GetAllUsers
     res.status(200).json({ usersList });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -21,12 +21,12 @@ module.exports.getAllUsers = async (req, res) => {
 
 module.exports.deleteUserByID = async (req, res) => {
   try {
-    const { id } = req.params;
-    const chekIfUserExists = await userModel.findById(id);
-    if (!chekIfUserExists) {
-      throw new Error("user not found");
+    const { id } = req.params;                                //njibo id user
+    const chekIfUserExists = await userModel.findById(id);    // verification   
+    if (!chekIfUserExists) {                                  
+      throw new Error("user not found");                        // personalisation error
     }
-    await userModel.findByIdAndDelete(id);
+    await userModel.findByIdAndDelete(id);                    //Find ba3ed delete user
     res.status(200).json("deleted");
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -35,14 +35,10 @@ module.exports.deleteUserByID = async (req, res) => {
 
 module.exports.addUser = async (req, res) => {
   try {
-    const { email, password, nom, prenom } = req.body;
-    console.log(req.body.password);
-    //   const chekIfUserExists = await userModel.findById(id);
-    //   if (!chekIfUserExists){
-    //     throw new Error("user not found")
-    //   }
-    const user = new userModel({ email, password, nom, prenom });
-    const useradded = await user.save();
+    const { email, password, nom, prenom } = req.body;    //njibo data user
+    console.log(req.body.password);     
+    const user = new userModel({ email, password, nom, prenom });   //
+    const useradded = await user.save();                              //save user
     res.status(200).json({ useradded });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -51,13 +47,13 @@ module.exports.addUser = async (req, res) => {
 
 module.exports.updateUser = async (req, res) => {
   try {
-    const { email, nom, prenom } = req.body;
+    const { email, nom, prenom } = req.body;                 //njibo data user
     const { id } = req.params;
-    const chekIfUserExists = await userModel.findById(id);
+    const chekIfUserExists = await userModel.findById(id);    // verification 
     if (!chekIfUserExists) {
-      throw new Error("user not found");
+      throw new Error("user not found");                      //personalisation erreur
     }
-    const updates = await userModel.findByIdAndUpdate(id, {
+    const updates = await userModel.findByIdAndUpdate(id, {     //update user
       $set: { email, nom, prenom },
     });
     res.status(200).json("useradded");
@@ -68,7 +64,7 @@ module.exports.updateUser = async (req, res) => {
 
 module.exports.getUserById = async (req, res) => {
 try {
-    const userId = req.params.id;
+    const userId = req.params.id;     //req.params unique ll ID
     const user = await userModel.findById(userId);
     if (!user) {
         return res.status(400).json("not found")
@@ -94,3 +90,16 @@ module.exports.confirmPassword = async (req, res) => {
 // module.exports.hello = (req,res) => {
 //     res.status(200).json("marahbe bikom")
 // }
+
+module.exports.addUserWithImg = async (req, res) => {
+  try {
+    const { filename } = req.file; //zyeda 1
+    const { email, password, nom, prenom } = req.body;    //njibo data user
+    console.log(req.body.password);     
+    const user = new userModel({ email, password, nom, prenom , image_User : filename });   //zyeda 2 image_User : filename
+    const useradded = await user.save();                              //save user
+    res.status(200).json({ useradded });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
