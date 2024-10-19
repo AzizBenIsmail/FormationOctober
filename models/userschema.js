@@ -24,7 +24,7 @@ try {
     const user = this;
     console.log(user.password);
     user.password = await bcrypt.hash(user.password, salt);
-    user.image_User = "client.png"
+    // user.image_User = "client.png"
     user.createdAt = Date.now();
     next();
 } catch (error) {
