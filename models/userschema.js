@@ -9,8 +9,9 @@ const userSchema = new mongoose.Schema({
   age: Number,
   address: String,
   image_User : String,
-  createdAt : Date 
-//   image_User : {type : String , required: true , Default:"client.png"}
+  createdAt : Date ,
+  cars: [{ type:mongoose.Schema.Types.ObjectId,ref:'Car'}] //many
+  //car: { type:mongoose.Schema.Types.ObjectId,ref:'Car'} //one
 });
 
 userSchema.post("save",function (req,res,next){
